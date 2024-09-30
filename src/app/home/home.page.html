@@ -1,20 +1,65 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Marvel
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- Refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <!-- Grid para personajes -->
+  <ion-grid fixed class="glass-content">
+    <ion-row>
+      <ion-col size-xs="12" size-sm="6" size-md="3" *ngFor="let p of personajes">
+        <ion-card>
+          <!-- Imagen del personaje -->
+          <ion-avatar>
+            <img alt="{{p.name}}" src="{{p.thumbnail.path.replace('http', 'https')}}.{{p.thumbnail.extension}}"/>
+          </ion-avatar>
+
+          <ion-card-header>
+            <ion-card-title>{{p.name}}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <!-- Grupo de acordeones para Descripción e Historias -->
+            <ion-accordion-group>
+              <!-- Acordeón de Descripción -->
+              <ion-accordion value="description">
+                <ion-item slot="header" color="light">
+                  <ion-label>Descripción</ion-label>
+                </ion-item>
+                <div class="ion-padding" slot="content">
+                  <p>{{p.description ? p.description : 'Descripción no disponible.'}}</p>
+                </div>
+              </ion-accordion>
+
+              <!-- Acordeón de Historias -->
+              <ion-accordion value="stories">
+                <ion-item slot="header" color="light">
+                  <ion-label>Historias</ion-label>
+                </ion-item>
+                <div class="ion-padding" slot="content">
+                  <p *ngFor="let c of p.comics.items">{{c.name}}</p>
+                </div>
+              </ion-accordion>
+            </ion-accordion-group>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Infinite Scroll -->
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingText="Please wait..."
+      loadingSpinner="bubbles">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

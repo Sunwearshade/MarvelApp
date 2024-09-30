@@ -35,3 +35,20 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+@import "@ionic/angular/css/palettes/dark.system.css";
+ion-content {
+    --background:url('/assets/marvel1.gif');
+    --color: white;
+}
+
+
+.glass-content {
+    background: rgba(255, 255, 255, 0.53);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(17.7px);
+    -webkit-backdrop-filter: blur(17.7px);
+    width: 100%;
+    min-height: 100%;
+
+}
